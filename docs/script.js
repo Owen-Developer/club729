@@ -225,6 +225,7 @@ function startAnimation(){
         }, (idx + 1) * 300);
     });
 }
+startAnimation();
 
 function createAnc(){
     async function getAnnouncements() {
@@ -742,12 +743,6 @@ function getCurrentDate() {
 
 
 if(document.querySelector(".home")){
-    document.querySelector(".load-container").style.display = "none";
-    document.querySelectorAll(".starter").forEach((el, idx) => {
-        el.style.transform = "translateY(0px)";
-        el.style.opacity = "1";
-    });
-
     function applyToggle(){
         document.getElementById("applyModal").style.opacity = "1";
         document.getElementById("applyModal").style.pointerEvents = "auto";
