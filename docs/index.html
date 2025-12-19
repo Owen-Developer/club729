@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/515deb5b82.js" crossorigin="anonymous"></script>
+    <title>Club 729 | Entrepreneur Community</title>
+</head>
+<body>
+    <div class="home"></div>
+
+    <div class="load-container">
+        <div class="load-title"><span>7</span><span>2</span><span>9</span></div>
+    </div>
+
+    <div class="hero-container" id="home">
+        <div class="hero-video">
+            <video autoplay loop muted playsinline>
+                <source src="images/vid1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="hero-bg"></div>
+        </div>
+
+        <div class="header width starter">
+
+        </div>
+
+        <div class="hero-content width">
+            <div class="eyebrow starter"><span></span>JOIN THE TOP 1%<span></span></div>
+            <div class="hero-title starter">Club 729</div>
+            <div class="hero-para starter">A private community built to fuel growth and connection for young entrepreneurs chasing success.</div>
+            <div class="hero-btn-flex starter">
+                <div class="hero-btn hero-apply-btn" onclick="applyToggle()">Apply Now</div>
+                <div onclick="loginToggle()" class="hero-btn hero-login-btn">Log in</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="about-container width scroll-target" id="about">
+        <div class="about-img-container">
+            <img src="images/about1.jpg" class="about-img" />
+        </div>
+
+        <div class="about-content">
+            <div class="eyebrow align-start scroll-target">Who We Are <span></span></div>
+            <div class="about-title scroll-target">About Us</div>
+            <div class="about-para scroll-target">
+Club 729 is a focused community for young entrepreneurs committed to growth, accountability, and purpose. Members connect through weekly calls, networking events, challenges, and resources designed to sharpen their mindset and strengthen their walk toward disciplined, honouring success. Here, ambition meets brotherhood and real progress.
+            </div>
+            <div class="about-social scroll-target">
+                <a target="_blank" href="tel:07716698892"><i class="fa-solid fa-phone about-social-icon"></i></a>
+                <a target="_blank" href="mailto:info@elevarecreatives.com"><i class="fa-regular fa-envelope about-social-icon"></i></a>
+                <a target="_blank" href="https://www.instagram.com/elevare.creatives/"><i class="fa-brands fa-instagram about-social-icon"></i></a>
+                <a target="_blank" href="https://www.tiktok.com/@elevare.creatives?_t=ZN-90xUSeKDy5O&_r=1"><i class="fa-brands fa-tiktok about-social-icon"></i></a>
+            </div>
+            <div class="about-hr-col scroll-target">
+                <div class="about-hr"></div>
+                <div class="about-hr"></div>
+            </div>
+            <div class="about-flex scroll-target">
+                <div class="about-col">
+                    <div class="about-head">2+</div>
+                    <div class="about-txt">Years Experience</div>
+                </div>
+                <div class="about-col">
+                    <div class="about-head">100+</div>
+                    <div class="about-txt">Active Members</div>
+                </div>
+                <div class="about-col">
+                    <div class="about-head">33%</div>
+                    <div class="about-txt">Members Succeed</div>
+                </div>
+            </div>
+            <div onclick="applyToggle()" class="btn-about btn-primary scroll-target">Join us today</div>
+        </div>
+    </div>
+
+    <div class="gal-container width" id="gallery">
+        <div class="eyebrow align-start scroll-target">Who We Are <span></span></div>
+        <div class="gal-title scroll-target">Explore Our Gallery</div>
+        <div class="gal-desc scroll-target">Explore the gallery to see dynamic performances, lively crowds, and unforgettable moments from recent events.</div>
+        <div class="gal-hr scroll-target"></div>
+
+        <div class="gal-bento">
+            <div class="gal-col scroll-target">
+                <div class="gal-img-container"><img src="images/gallery/hori1.jpg" class="gal-img" /></div>
+                <div class="gal-flex">
+                    <div class="gal-img-container"><img src="images/gallery/vert1.jpg" class="gal-img" /></div>
+                    <div class="gal-img-container"><img src="images/gallery/vert2.jpg" class="gal-img" /></div>
+                </div>
+            </div>
+            <div class="gal-col scroll-target">
+                <div class="gal-img-container"><img src="images/gallery/vert3.jpg" class="gal-img" /></div>
+            </div>
+            <div class="gal-col scroll-target">
+                <div class="gal-img-container"><img src="images/gallery/hori2.jpg" class="gal-img" /></div>
+                <div class="gal-img-container"><img src="images/gallery/hori3.jpg" class="gal-img" /></div>
+            </div>
+        </div>
+        <div class="gal-bento">
+            <div class="gal-col scroll-target">
+                <div class="gal-img-container"><img src="images/gallery/hori4.jpg" class="gal-img" /></div>
+                <div class="gal-img-container"><img src="images/gallery/hori5.jpg" class="gal-img" /></div>
+            </div>
+            <div class="gal-col scroll-target">
+                <div class="gal-img-container"><img src="images/gallery/hori6.jpg" class="gal-img" /></div>
+                <div class="gal-flex">
+                    <div class="gal-img-container"><img src="images/gallery/vert4.jpg" class="gal-img" /></div>
+                    <div class="gal-img-container"><img src="images/gallery/vert5.jpg" class="gal-img" /></div>
+                </div>
+            </div>
+            <div class="gal-col scroll-target">
+                <div class="gal-img-container"><img src="images/gallery/vert1.jpg" class="gal-img" /></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="contact-container width" id="contact">
+        <div class="contact-content scroll-target">
+            <div class="contact-title">Get in Touch</div>
+            <div class="contact-para">Have questions? We're happy to help with anything you need — just drop us a message.</div>
+            <div class="contact-para contact-para2">We'll get back in 24h.</div>
+            <div class="contact-box">
+                <div class="contact-head">Book an Event</div>
+                <div class="contact-txt">Choose a time that suits you and we’ll take care of the rest, no hassle, no wait.</div>
+                <a href="#" class="btn-contact">Call Us Now</a>
+            </div>
+        </div>
+
+        <form method="POST" class="contact-form scroll-target">
+            <div class="form-label">Your name</div>
+            <input type="text" class="form-input" placeholder="Enter your name" />
+
+            <div class="form-label">Email address</div>
+            <input type="text" class="form-input" placeholder="Enter your email" />
+
+            <div class="form-label">Phone number</div>
+            <input type="text" class="form-input" placeholder="Enter your number" />
+
+            <div class="form-label">Message</div>
+            <textarea class="form-area" placeholder="Type your message"></textarea>
+
+            <div class="robot-flex">
+                <div class="robot-box"><i class="fa-solid fa-check robot-check"></i></div>
+                <div class="robot-txt">I'm not a robot</div>
+            </div>
+
+            <div class="btn-contact">Send message <i class="fa-solid fa-chevron-right contact-chevron"></i></div>
+        </form>
+    </div>
+    <div class="book-modal" id="bookModal">
+        <div class="book-wrapper">
+            <i class="fa-solid fa-check book-modal-check"></i>
+            <div class="book-modal-title">Thank You!</div>
+            <div class="book-modal-para">Your message has been successfully<br> delivered. Thanks!</div>
+            <a href="index.html" class="btn-book-modal">Okay</a>
+        </div>
+    </div>
+
+    <div class="cta-container width scroll-target">
+        <div class="cta-title">Ready to level up? Let’s<br> build your future.</div>
+        <div onclick="applyToggle()" class="btn-cta">Get Started Today <img src="images/arrow.png" /></div>
+    </div>
+
+
+    <div class="new-modal padding" id="applyModal">
+        <form id="applyForm" class="new-wrapper">
+            <i class="fa-solid fa-xmark new-xmark"></i>
+            <div class="new-title">Application Form</div>
+            <div class="new-col">
+                <div class="new-label">Full Name</div>
+                <input type="text" placeholder="Enter Name" class="new-input" name="name" required />
+
+                <div class="new-label">Email Address</div>
+                <input type="text" placeholder="Enter Email" class="new-input" name="email" required />
+
+                <div class="new-label">Phone Number</div>
+                <input type="text" placeholder="Enter Phone" class="new-input" name="phone" required />
+
+                <div class="new-label">Password</div>
+                <input type="password" placeholder="Create Password" class="new-input" name="password" required />
+
+                <div class="new-label">Business Industry</div>
+                <div class="new-pill-flex">
+                    <div class="new-pill new-pill-active" id="mat-dropshipping">Dropshipping</div>
+                    <div class="new-pill" id="mat-marketing">Marketing</div>
+                    <div class="new-pill" id="mat-saas">Saas</div>
+                    <div class="new-pill" id="mat-sales">Sales</div>
+                    <div class="new-pill" id="mat-trading">Trading</div>
+                    <div class="new-pill" id="mat-smma">Smma</div>
+                    <div class="new-pill" id="mat-services">Services</div>
+                    <div class="new-pill" id="mat-other">Other</div>
+                    <input type="hidden" name="business" value="dropshipping" id="newMaterialType" />
+                </div>
+            </div>
+            <button type="submit" class="new-btn" id="applyBtn">Apply Now</button>
+        </form>
+    </div>
+
+    <div class="new-modal padding" id="loginModal">
+        <form id="loginForm" class="new-wrapper">
+            <i class="fa-solid fa-xmark new-xmark"></i>
+            <div class="new-title">Welcome Back</div>
+            <div class="new-col">
+                <div class="new-label">Full Name</div>
+                <input type="text" placeholder="Enter Name" class="new-input" name="name" required />
+
+                <div class="new-label">Email Address</div>
+                <input type="text" placeholder="Enter Email" class="new-input" name="email" required />
+
+                <div class="new-label">Password</div>
+                <input type="password" placeholder="Enter Password" class="new-input" name="password" required />
+            </div>
+            <div id="userError" class="new-error">Email is not registered.</div>
+            <div id="invalidError" class="new-error">Incorrect password.</div>
+            <button type="submit" class="new-btn" id="loginBtn">Log in</button>
+        </form>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>

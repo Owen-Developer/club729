@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/515deb5b82.js" crossorigin="anonymous"></script>
+    <title>Club 729 | Community Chat</title>
+</head>
+<body style="min-height: 102vh;">
+    <div class="chat"></div>
+
+    <div class="header width" style="position: fixed; top: 0; left: 50%; transform: translateX(-50%); background-color: black; z-index: 1;">
+        <img src="images/logo.png" class="header-logo" />
+        
+        <div class="header-nav">
+            <a href="index.html" class="header-link">Home</a>
+            <a href="dashboard.html" class="header-link">Calendar</a>    
+            <a href="gallery.html" class="header-link">Gallery</a>    
+            <a href="training.html" class="header-link">Training</a>    
+            <a href="chat.html" class="header-link">Chat</a>    
+            <a href="announcements.html" class="header-link">Announcements</a>    
+        </div>
+
+        <div class="header-menu" onclick="openMenu()">
+            <div class="menu-line line1"></div>
+            <div class="menu-line line2"></div>
+            <div class="menu-line line3"></div>
+        </div>
+    </div>
+
+    <div class="chat-container width">
+
+    </div>
+    
+    <div class="chat-box-bg">
+        <div class="chat-box">
+            <textarea id="chatArea" class="chat-area" placeholder="What's on your mind?"></textarea>
+            <div class="chat-arrow">
+                <img src="images/arrow.png" />
+            </div>
+        </div>
+    </div>
+
+    <!-- 
+    <div class="new-modal padding" style="opacity: 1; pointer-events: auto;">
+        <div class="new-wrapper">
+            <i class="fa-solid fa-xmark anc-xmark"></i>
+            <div class="anc-top">
+                <div class="anc-title">Announcements</div>
+                <div class="anc-btn"><i class="fa-solid fa-plus"></i> Add Member</div>
+            </div>
+
+            <div class="usr-ul">
+                <div class="usr-li">
+                    <div class="usr-name">Jack Woods</div>
+                    <i class="fa-solid fa-trash usr-delete"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="new-modal padding" style="opacity: 1; pointer-events: auto;">
+        <form id="eventForm" class="new-wrapper">
+            <i class="fa-solid fa-xmark new-xmark"></i>
+            <div class="new-title">Create Event</div>
+            <div class="new-col">
+                <div class="new-label">Event Title</div>
+                <input type="text" placeholder="Enter Title" class="new-input" name="title" required />
+
+                <div class="new-label">Event Description</div>
+                <textarea name="description" placeholder="Enter Description" class="new-area" required></textarea>
+
+                <div class="new-label">Event Date</div>
+                <input type="text" placeholder="dd/mm/yyyy" class="new-input" name="date" required />
+            </div>
+            <div id="invalidError" class="new-error">Enter a valid date: 'dd/mm/yyyy'.</div>
+            <button type="submit" class="new-btn" id="loginBtn">Create Event</button>
+        </form>
+    </div>
+
+    <div class="new-modal" style="opacity: 1; pointer-events: auto;">
+        <div class="new-wrapper">
+            <i class="fa-solid fa-xmark new-xmark"></i>
+            <div class="new-title">Admin Pannel</div>
+            
+            <div class="pan-option">Manage Members</div>
+            <div class="pan-option">Create Event</div>
+            <div class="pan-option">Manage Events</div>
+            <div class="pan-option">Post Announcement</div>
+        </div>
+    </div>
+        
+    <div class="new-modal padding" id="loginModal" style="opacity: 1; pointer-events: auto;">
+        <form class="new-wrapper">
+            <i class="fa-solid fa-xmark new-xmark"></i>
+            <div class="new-title">Welcome Back</div>
+            <div class="new-col">
+                <div class="new-label">Heading</div>
+                <input type="text" placeholder="Enter heading" class="new-input" name="heading" required />
+
+                <div class="new-label">Message</div>
+                <textarea name="message" placeholder="Enter message" class="new-area" required></textarea>
+            </div>
+            <button type="submit" class="new-btn" id="loginBtn">Create Post</button>
+        </form>
+    </div>
+
+    <div class="anc-modal">
+        <div class="anc-wrapper">
+            <i class="fa-solid fa-xmark anc-xmark"></i>
+            <div class="anc-top">
+                <div class="anc-title">Announcements</div>
+                <div class="anc-btn"><i class="fa-solid fa-plus"></i> Create</div>
+            </div>
+
+            <div class="anc-ul">
+                <div class="anc-li">
+                    <div class="anc-info">
+                        <div class="anc-pfp">
+                            <img src="images/pfp.png" />
+                        </div>
+                        <div>
+                            <div class="anc-name">John Smith</div>
+                            <div class="anc-date">Created at 25/12/2025</div>
+                        </div>
+                    </div>
+                    <div class="anc-head">New Training Videos</div>
+                    <div class="anc-para">
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius deserunt minima adipisci saepe. Necessitatibus quam laborum vero labore quo veniam inventore repudiandae impedit nostrum dolore, explicabo nobis veritatis quaerat nam iusto adipisci!
+                    </div>
+                </div>
+                <div class="anc-li">
+                    <div class="anc-info">
+                        <div class="anc-pfp">
+                            <img src="images/pfp.png" />
+                        </div>
+                        <div>
+                            <div class="anc-name">John Smith</div>
+                            <div class="anc-date">Created at 25/12/2025</div>
+                        </div>
+                    </div>
+                    <div class="anc-head">New Training Videos</div>
+                    <div class="anc-para">
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius deserunt minima adipisci saepe. Necessitatibus quam laborum vero labore quo veniam inventore repudiandae impedit nostrum dolore, explicabo nobis veritatis quaerat nam iusto adipisci!
+                    </div>
+                </div>
+                <div class="anc-li">
+                    <div class="anc-info">
+                        <div class="anc-pfp">
+                            <img src="images/pfp.png" />
+                        </div>
+                        <div>
+                            <div class="anc-name">John Smith</div>
+                            <div class="anc-date">Created at 25/12/2025</div>
+                        </div>
+                    </div>
+                    <div class="anc-head">New Training Videos</div>
+                    <div class="anc-para">
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius deserunt minima adipisci saepe. Necessitatibus quam laborum vero labore quo veniam inventore repudiandae impedit nostrum dolore, explicabo nobis veritatis quaerat nam iusto adipisci!
+                    </div>
+                </div>
+                <div class="anc-li">
+                    <div class="anc-info">
+                        <div class="anc-pfp">
+                            <img src="images/pfp.png" />
+                        </div>
+                        <div>
+                            <div class="anc-name">John Smith</div>
+                            <div class="anc-date">Created at 25/12/2025</div>
+                        </div>
+                    </div>
+                    <div class="anc-head">New Training Videos</div>
+                    <div class="anc-para">
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius deserunt minima adipisci saepe. Necessitatibus quam laborum vero labore quo veniam inventore repudiandae impedit nostrum dolore, explicabo nobis veritatis quaerat nam iusto adipisci!
+                    </div>
+                </div>
+                <div class="anc-li">
+                    <div class="anc-info">
+                        <div class="anc-pfp">
+                            <img src="images/pfp.png" />
+                        </div>
+                        <div>
+                            <div class="anc-name">John Smith</div>
+                            <div class="anc-date">Created at 25/12/2025</div>
+                        </div>
+                    </div>
+                    <div class="anc-head">New Training Videos</div>
+                    <div class="anc-para">
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius deserunt minima adipisci saepe. Necessitatibus quam laborum vero labore quo veniam inventore repudiandae impedit nostrum dolore, explicabo nobis veritatis quaerat nam iusto adipisci!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     -->
+
+
+    <script src="script.js"></script>
+</body>
+</html>

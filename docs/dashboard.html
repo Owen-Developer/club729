@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/515deb5b82.js" crossorigin="anonymous"></script>
+    <title>Club 729 | Entrepreneur Community</title>
+</head>
+<body>
+    <div class="dashboard"></div>
+
+    <div class="header width">
+        <img src="images/logo.png" class="header-logo" />
+        
+        <div class="header-nav">
+            <a href="index.html" class="header-link">Home</a>
+            <a href="dashboard.html" class="header-link">Calendar</a>    
+            <a href="gallery.html" class="header-link">Gallery</a>    
+            <a href="training.html" class="header-link">Training</a>    
+            <a href="chat.html" class="header-link">Chat</a>    
+            <a href="announcements.html" class="header-link">Announcements</a>    
+        </div>
+
+        <div class="header-menu" onclick="openMenu()">
+            <div class="menu-line line1"></div>
+            <div class="menu-line line2"></div>
+            <div class="menu-line line3"></div>
+        </div>
+    </div>
+
+    <div id="events">
+        <div class="cal-container width scroll-target">
+            <div class="cal-content">
+                <div class="eyebrow work-eyebrow pop-target"><span></span> Our Calendar <span></span></div>
+                <div class="cal-title">Join us in Our<br> Upcoming Events</div>
+                <div class="btn-cal" onclick="createEventPost()">Create Event</div>
+            </div>
+            <div class="cal-wrapper">
+                <div class="cal-nav">
+                    <i class="fa-solid fa-chevron-left cal-nav-chevron"></i>
+                    <div class="cal-nav-title">December 2025</div>
+                    <i class="fa-solid fa-chevron-right cal-nav-chevron"></i>
+                </div>
+
+                <div class="cal-top">
+                    <div class="cal-top-mon">Mon</div>
+                    <div class="cal-top-mon">Tue</div>
+                    <div class="cal-top-mon">Wed</div>
+                    <div class="cal-top-mon">Thu</div>
+                    <div class="cal-top-mon">Fri</div>
+                    <div class="cal-top-mon">Sat</div>
+                    <div class="cal-top-mon">Sun</div>
+                </div>
+                
+                <div class="cal-flex">
+                    <div class="cal-box cal-day-disabled" style="border-top: 0; border-left: 0;"><div class="cal-box-day"></div></div>
+                    <div class="cal-box cal-day-disabled" style="border-top: 0;"><div class="cal-box-day"></div></div>
+                    <div class="cal-box cal-day-disabled" style="border-top: 0;"><div class="cal-box-day"></div></div>
+                    <div class="cal-box cal-day-disabled" style="border-top: 0;"><div class="cal-box-day"></div></div>
+                    <div class="cal-box" style="border-top: 0;"><div class="cal-box-day"></div></div>
+                    <div class="cal-box" style="border-top: 0;"><div class="cal-box-day"></div></div>
+                    <div class="cal-box" style="border-top: 0; border-right: 0;"><div class="cal-box-day"></div></div>
+                </div>
+                <div class="cal-flex">
+                    <div class="cal-box" style="border-left: 0;"><div class="cal-box-day"></div></div>
+                    <div class="cal-box cal-box-today"><div class="cal-box-day"></div>
+                        <div class="cal-today-txt">Today</div>
+                    </div>
+                    <div class="cal-box"><div class="cal-box-day"></div></div>
+                    <div class="cal-box"><div class="cal-box-day"></div></div>
+                    <div class="cal-box"><div class="cal-box-day"></div></div>
+                    <div class="cal-box cal-box-event"><div class="cal-box-day"></div>
+                        <div class="cal-event-head">Saturday Lesson</div>
+                        <div class="cal-event-time">5:30am - 6:30am</div>
+                        <div class="cal-event-cta" onclick="openInfoModal()">More info</div>
+                    </div>
+                    <div class="cal-box" style="border-right: 0;"><div class="cal-box-day"></div></div>
+                </div>
+                <div class="cal-flex">
+                    <div class="cal-box" style="border-left: 0;"><div class="cal-box-day"></div></div>
+                    <div class="cal-box"><div class="cal-box-day"></div>
+                    </div>
+                    <div class="cal-box"><div class="cal-box-day"></div></div>
+                    <div class="cal-box"><div class="cal-box-day"></div></div>
+                    <div class="cal-box"><div class="cal-box-day"></div></div>
+                    <div class="cal-box"><div class="cal-box-day"></div></div>
+                    <div class="cal-box" style="border-right: 0;"><div class="cal-box-day"></div></div>
+                </div>
+                <div class="cal-flex">
+                    <div class="cal-box" style="border-left: 0;"><div class="cal-box-day"></div></div>
+                    <div class="cal-box"><div class="cal-box-day"></div></div>
+                    <div class="cal-box"><div class="cal-box-day"></div></div>
+                    <div class="cal-box"><div class="cal-box-day"></div></div>
+                    <div class="cal-box cal-box-event"><div class="cal-box-day"></div>
+                        <div class="cal-event-head">Monthly Meet-up</div>
+                        <div class="cal-event-time">2:00pm - 4:00pm</div>
+                        <div class="cal-event-cta" onclick="openInfoModal()">More info</div>
+                    </div>
+                    <div class="cal-box"><div class="cal-box-day"></div></div>
+                    <div class="cal-box" style="border-right: 0;"><div class="cal-box-day"></div></div>
+                </div>
+                <div class="cal-flex">
+                    <div class="cal-box" style="border-left: 0; border-bottom: 0;"><div class="cal-box-day"></div></div>
+                    <div class="cal-box" style="border-bottom: 0;"><div class="cal-box-day"></div></div>
+                    <div class="cal-box" style="border-bottom: 0;"><div class="cal-box-day"></div></div>
+                    <div class="cal-box" style="border-bottom: 0;"><div class="cal-box-day"></div></div>
+                    <div class="cal-box" style="border-bottom: 0;"><div class="cal-box-day"></div></div>
+                    <div class="cal-box" style="border-bottom: 0;"><div class="cal-box-day"></div></div>
+                    <div class="cal-box" style="border-right: 0; border-bottom: 0;"><div class="cal-box-day"></div></div>
+                </div>
+                <div class="cal-flex last-flex">
+                    <div class="cal-box" style="border-left: 0; border-bottom: 0;"><div class="cal-box-day"></div></div>
+                    <div class="cal-box" style="border-bottom: 0;"><div class="cal-box-day"></div></div>
+                    <div class="cal-box" style="border-bottom: 0;"><div class="cal-box-day"></div></div>
+                    <div class="cal-box" style="border-bottom: 0;"><div class="cal-box-day"></div></div>
+                    <div class="cal-box" style="border-bottom: 0;"><div class="cal-box-day"></div></div>
+                    <div class="cal-box" style="border-bottom: 0;"><div class="cal-box-day"></div></div>
+                    <div class="cal-box" style="border-right: 0; border-bottom: 0;"><div class="cal-box-day"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lac-container width scroll-target" style="margin: 70px auto 0;">
+            <div class="cal-content">
+                <div class="eyebrow work-eyebrow pop-target"><span></span> Our Calendar <span></span></div>
+                <div class="cal-title">Join us in Our<br> Upcoming Events</div>
+                <div class="btn-cal" onclick="createEventPost()">Create Event</div>
+            </div>
+            
+            <div class="lac-wrapper">
+                <div class="lac-nav">
+                    <i class="fa-solid fa-chevron-left lac-nav-chevron" onclick="changeMonth('left')"></i>
+                    <div class="lac-nav-title">August 5, 2025</div>
+                    <i class="fa-solid fa-chevron-right lac-nav-chevron" onclick="changeMonth('right')"></i>
+                </div>
+
+                <div class="lac-scroll">
+                    <div class="lac-top">
+                        <div class="lac-top-mon">Sun</div>
+                        <div class="lac-top-mon">Mon</div>
+                        <div class="lac-top-mon">Tue</div>
+                        <div class="lac-top-mon">Wed</div>
+                        <div class="lac-top-mon">Thu</div>
+                        <div class="lac-top-mon">Fri</div>
+                        <div class="lac-top-mon">Sat</div>
+                        <div class="lac-top-mon">Sun</div>
+                        <div class="lac-top-mon">Mon</div>
+                        <div class="lac-top-mon">Tue</div>
+                        <div class="lac-top-mon">Wed</div>
+                        <div class="lac-top-mon">Thu</div>
+                        <div class="lac-top-mon">Fri</div>
+                        <div class="lac-top-mon">Sat</div>
+                        <div class="lac-top-mon">Sun</div>
+                        <div class="lac-top-mon">Mon</div>
+                        <div class="lac-top-mon">Tue</div>
+                        <div class="lac-top-mon">Wed</div>
+                        <div class="lac-top-mon">Thu</div>
+                        <div class="lac-top-mon">Fri</div>
+                        <div class="lac-top-mon">Sat</div>
+                        <div class="lac-top-mon">Sun</div>
+                        <div class="lac-top-mon">Mon</div>
+                        <div class="lac-top-mon">Tue</div>
+                        <div class="lac-top-mon">Wed</div>
+                        <div class="lac-top-mon">Thu</div>
+                        <div class="lac-top-mon">Fri</div>
+                        <div class="lac-top-mon">Sat</div>
+                        <div class="lac-top-mon">Sun</div>
+                        <div class="lac-top-mon">Mon</div>
+                        <div class="lac-top-mon">Tue</div>
+                        <div class="lac-top-mon">Wed</div>
+                        <div class="lac-top-mon">Thu</div>
+                        <div class="lac-top-mon">Fri</div>
+                        <div class="lac-top-mon">Sat</div>
+                        <div class="lac-top-mon">Sun</div>
+                        <div class="lac-top-mon">Mon</div>
+                        <div class="lac-top-mon">Tue</div>
+                    </div>
+                    
+                    <div class="lac-flex">
+                        <div class="lac-box lac-box-today lac-edge-left"><div class="lac-box-day">3</div>
+                            <div class="lac-today-txt">Today</div>
+                        </div>
+                        <div class="lac-box"><div class="lac-box-day">4</div></div>
+                        <div class="lac-box lac-box-event"><div class="lac-box-day">5</div>
+                            <div class="lac-event-head">Pro AM</div>
+                            <div class="lac-event-time">7:30am - 13:00pm</div>
+                            <div class="lac-event-cta" onclick="openInfoModal()">More info</div>
+                        </div>
+                        <div class="lac-box"><div class="lac-box-day">6</div></div>
+                        <div class="lac-box"><div class="lac-box-day">7</div></div>
+                        <div class="lac-box lac-edge"><div class="lac-box-day">8</div></div>
+                        <div class="lac-box"><div class="lac-box-day">9</div></div>
+                        <div class="lac-box"><div class="lac-box-day">10</div></div>
+                        <div class="lac-box lac-box-event"><div class="lac-box-day">11</div>
+                            <div class="lac-event-head">Open Singles</div>
+                            <div class="lac-event-time">7:30am - 16:00pm</div>
+                            <div class="lac-event-cta" onclick="openInfoModal()">More info</div>
+                        </div>
+                        <div class="lac-box"><div class="lac-box-day">12</div></div>
+                        <div class="lac-box"><div class="lac-box-day">13</div></div>
+                        <div class="lac-box"><div class="lac-box-day">14</div></div>
+                        <div class="lac-box"><div class="lac-box-day">15</div></div>
+                        <div class="lac-box"><div class="lac-box-day">16</div></div>
+                        <div class="lac-box"><div class="lac-box-day">17</div></div>
+                        <div class="lac-box"><div class="lac-box-day">18</div></div>
+                        <div class="lac-box"><div class="lac-box-day">19</div></div>
+                        <div class="lac-box"><div class="lac-box-day">20</div></div>
+                        <div class="lac-box"><div class="lac-box-day">21</div></div>
+                        <div class="lac-box"><div class="lac-box-day">22</div></div>
+                        <div class="lac-box"><div class="lac-box-day">23</div></div>
+                        <div class="lac-box"><div class="lac-box-day">24</div></div>
+                        <div class="lac-box"><div class="lac-box-day">25</div></div>
+                        <div class="lac-box"><div class="lac-box-day">26</div></div>
+                        <div class="lac-box"><div class="lac-box-day">27</div></div>
+                        <div class="lac-box"><div class="lac-box-day">28</div></div>
+                        <div class="lac-box"><div class="lac-box-day">29</div></div>
+                        <div class="lac-box"><div class="lac-box-day">30</div></div>
+                        <div class="lac-box lac-edge-right"><div class="lac-box-day">31</div></div>
+                        <div class="lac-box lac-edge-right"><div class="lac-box-day">31</div></div>
+                        <div class="lac-box lac-edge-right"><div class="lac-box-day">31</div></div>
+                        <div class="lac-box lac-edge-right"><div class="lac-box-day">31</div></div>
+                        <div class="lac-box lac-edge-right"><div class="lac-box-day">31</div></div>
+                        <div class="lac-box lac-edge-right"><div class="lac-box-day">31</div></div>
+                        <div class="lac-box lac-edge-right"><div class="lac-box-day">31</div></div>
+                        <div class="lac-box lac-edge-right"><div class="lac-box-day">31</div></div>
+                        <div class="lac-box lac-edge-right"><div class="lac-box-day">31</div></div>
+                        <div class="lac-box lac-edge-right"><div class="lac-box-day">31</div></div>
+                        <div class="lac-box lac-edge-right"><div class="lac-box-day">31</div></div>
+                        <div class="lac-box lac-edge-right"><div class="lac-box-day">31</div></div>
+                        <div class="lac-box lac-edge-right"><div class="lac-box-day">31</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
