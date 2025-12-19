@@ -362,7 +362,8 @@ function createAncPost(){
         const res = await fetch(url + "/api/post-announcement", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
+            body: JSON.stringify(data),
+            credentials: 'include'
         });
 
         const responseData = await res.json();
@@ -478,7 +479,8 @@ function createEventPost(){
         const res = await fetch(url + "/api/create-event", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
+            body: JSON.stringify(data),
+            credentials: 'include'
         });
 
         const responseData = await res.json();
@@ -641,7 +643,8 @@ function createEdit(event){
         const res = await fetch(url + "/api/edit-event", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
+            body: JSON.stringify(data),
+            credentials: 'include'
         });
 
         const responseData = await res.json();
@@ -781,7 +784,8 @@ if(document.querySelector(".home")){
         const res = await fetch(url + "/api/apply", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
+            body: JSON.stringify(data),
+            credentials: 'include'
         });
 
         const responseData = await res.json();
