@@ -1717,7 +1717,7 @@ i.anc-xmark {
     font-weight: 500;
     color: white;
 }
-i.usr-delete {
+i.usr-delete, i.usr-accept {
     cursor: pointer;
     background-color: hsl(0, 0%, 15%);
     width: 38px;
@@ -1729,7 +1729,7 @@ i.usr-delete {
     font-size: 16px;
     color: hsl(0, 0%, 60%);
 }
-i.usr-delete:hover {
+i.usr-delete:hover, i.usr-accept:hover {
     color: white;
 }
 /*////////////////////////////////////////////////////////////////*/

@@ -154,7 +154,10 @@ function createHtml(){
 createHtml();
 
 const menuContainer = document.querySelector(".menu-container");
-const url = "https://servers.nextdesignwebsite.com/club";
+let url = "https://servers.nextdesignwebsite.com/club";
+if(window.location.href.includes("localhost")){
+    url = "";
+}
 let params = new URLSearchParams(window.location.search);
 
 function openMenu(){
@@ -404,6 +407,7 @@ function createAdminPannel(){
             <div class="new-title">Admin Pannel</div>
 
             <div class="pan-option pan-manage">Manage Members</div>
+            <div class="pan-option pan-application">Member Applications</div>
             <div class="pan-option pan-event">Create Event</div>
             <a href="/dashboard.html" class="pan-option">Manage Events</a>
             <div class="pan-option pan-post" style="margin-bottom: 0px;">Post Announcement</div>
@@ -415,6 +419,11 @@ function createAdminPannel(){
         newPan.style.opacity = "0";
         newPan.style.pointerEvents = "none";
         createView();
+    });
+    newPan.querySelector(".pan-application").addEventListener("click", () => {
+        newPan.style.opacity = "0";
+        newPan.style.pointerEvents = "none";
+        createApplication();
     });
     newPan.querySelector(".pan-event").addEventListener("click", () => {
         newPan.style.opacity = "0";
@@ -680,6 +689,99 @@ function createEdit(event){
             document.body.appendChild(newModal);
         }, 300);
     });
+}
+function createApplication(){
+    async function getMembers(){
+        try {
+            const response = await fetch(`${url}/api/get-applications`, {
+                method: 'GET',
+                credentials: 'include'
+            });
+            const data = await response.json(); 
+
+            let newModal = document.createElement("div");
+            newModal.classList.add("new-modal");
+            newModal.innerHTML = `
+                <div class="new-wrapper">
+                    <i class="fa-solid fa-xmark anc-xmark"></i>
+                    <div class="anc-top">
+                        <div class="anc-title">Member Applications</div>
+                    </div>
+
+                    <div class="usr-ul">
+                        <div class="empty-txt">Sorry, we couldn't find any applications to show here. Try again later.</div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(newModal);
+
+            data.members.forEach(member => {
+                let newMember = document.createElement("div");
+                newMember.classList.add("usr-li");
+                newMember.innerHTML = `
+                    <div class="usr-name">${member.name}</div>
+                    <i class="fa-solid fa-check usr-accept"></i>
+                `;
+                newMember.querySelector("i.usr-accept").addEventListener("click", () => {
+                    newMember.style.display = "none";
+                    async function acceptMember(){
+                        const dataToSend = { id: member.id, email: member.email };
+                        try {
+                            const response = await fetch(url + '/api/accept-member', {
+                                method: 'POST',
+                                credentials: 'include',
+                                headers: {
+                                    'Content-Type': 'application/json', 
+                                },
+                                body: JSON.stringify(dataToSend), 
+                            });
+
+                            if (!response.ok) {
+                                const errorData = await response.json();
+                                console.error('Error:', errorData.message);
+                                return;
+                            }
+
+                            const data = await response.json();
+                        } catch (error) {
+                            console.error('Error posting data:', error);
+                        }
+                    }
+                    acceptMember();
+                });
+                newModal.querySelector(".usr-ul").appendChild(newMember);
+            });
+            if(data.members.length == 0){
+                newModal.querySelector(".empty-txt").style.display = "block";
+            } else {
+                newModal.querySelector(".empty-txt").style.display = "none";
+            }
+
+            setTimeout(() => {
+                newModal.style.opacity = "1";
+                newModal.style.pointerEvents = "auto";
+            }, 50);
+            newModal.addEventListener("click", (e) => {
+                if(!newModal.querySelector(".new-wrapper").contains(e.target)){
+                    newModal.style.opacity = "0";
+                    newModal.style.pointerEvents = "none";
+                    setTimeout(() => {
+                        document.body.appendChild(newModal);
+                    }, 300);
+                }
+            });
+            newModal.querySelector("i.anc-xmark").addEventListener("click", () => {
+                newModal.style.opacity = "0";
+                newModal.style.pointerEvents = "none";
+                setTimeout(() => {
+                    document.body.appendChild(newModal);
+                }, 300);
+            });
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+    getMembers();
 }
 
 function createThank(mesg){
