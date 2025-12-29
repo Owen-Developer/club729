@@ -54,6 +54,7 @@ FOR JWT SESSIONS
 2. send token to frontend in /login
 3. replace all req.session -> req.user
 4. add function middleware everywhere req.user is used, including other middleware
+5. add const jwt = require("jsonwebtoken"); :)
 */
 
 
@@ -266,7 +267,8 @@ app.post("/api/login", (req, res) => {
 
             const payload = {
                 userId: result[0].id,
-                admin: isAdmin
+                name: result[0].name,
+                admin: isAdmin,
             };
             const token = jwt.sign(
                 payload,
@@ -335,7 +337,7 @@ app.post("/api/send-chat", clubRequireAuth, (req, res) => {
     let isAdmin = "no";
     if(req.user.admin) isAdmin = "yes";
 
-    db.query("insert into chats (user_id, message, full_date, full_time, is_admin) values (?, ?, ?, ?, ?)", [req.user.userId, message, getCurrentDate(), getTime(), isAdmin], (err, result) => {
+    db.query("insert into chats (user_id, name, message, full_date, full_time, is_admin) values (?, ?, ?, ?, ?, ?)", [req.user.userId, req.user.name, message, getCurrentDate(), getTime(), isAdmin], (err, result) => {
         if(err){
             console.error(err);
         }

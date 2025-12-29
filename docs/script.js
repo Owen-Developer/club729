@@ -1296,7 +1296,6 @@ if(!document.querySelector(".home")){
                         });
                         const data = await response.json();
                         const chats = data.chats; 
-                        data.name = "Sample Name";
                         if(data.message == "success"){
                             let dates = [];
                             chats.forEach(chat => {
@@ -1315,7 +1314,7 @@ if(!document.querySelector(".home")){
                                         if(chat.is_admin == "yes") adminText = "(Admin)";
                                         newMsg.innerHTML = `
                                             <div class="chat-info">
-                                                <div class="chat-name">${data.name} ${adminText}</div>
+                                                <div class="chat-name">${chat.name} ${adminText}</div>
                                                 <div class="chat-date">${chat.full_time}</div>
                                             </div>
                                             <div class="chat-para">${chat.message}</div>
