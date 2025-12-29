@@ -78,7 +78,7 @@ button {
 
 /*/////////////////////// MENU SECTION ///////////////////////*/
 .admin-element {
-    display: none;
+    display: none !important;
 }
 .menu-icon {
     margin-left: auto;

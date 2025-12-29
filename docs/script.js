@@ -235,7 +235,10 @@ function createAnc(){
         try {
             const response = await fetch(`${url}/api/get-announcements`, {
                 method: 'GET',
-                credentials: 'include'
+                credentials: 'include',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                }
             });
             const data = await response.json(); 
             if(data.message == "success"){
@@ -364,7 +367,8 @@ function createAncPost(){
 
         const res = await fetch(url + "/api/post-announcement", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`, "Content-Type": "application/json" },
             body: JSON.stringify(data),
             credentials: 'include'
         });
@@ -487,7 +491,8 @@ function createEventPost(){
 
         const res = await fetch(url + "/api/create-event", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`, "Content-Type": "application/json" },
             body: JSON.stringify(data),
             credentials: 'include'
         });
@@ -531,6 +536,9 @@ function createView(){
         try {
             const response = await fetch(`${url}/api/get-members`, {
                 method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                },
                 credentials: 'include'
             });
             const data = await response.json(); 
@@ -567,6 +575,7 @@ function createView(){
                                 method: 'POST',
                                 credentials: 'include',
                                 headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
                                     'Content-Type': 'application/json', 
                                 },
                                 body: JSON.stringify(dataToSend), 
@@ -651,7 +660,8 @@ function createEdit(event){
 
         const res = await fetch(url + "/api/edit-event", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`, "Content-Type": "application/json" },
             body: JSON.stringify(data),
             credentials: 'include'
         });
@@ -695,7 +705,10 @@ function createApplication(){
         try {
             const response = await fetch(`${url}/api/get-applications`, {
                 method: 'GET',
-                credentials: 'include'
+                credentials: 'include',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                }
             });
             const data = await response.json(); 
 
@@ -731,6 +744,7 @@ function createApplication(){
                                 method: 'POST',
                                 credentials: 'include',
                                 headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
                                     'Content-Type': 'application/json', 
                                 },
                                 body: JSON.stringify(dataToSend), 
@@ -885,7 +899,8 @@ if(document.querySelector(".home")){
 
         const res = await fetch(url + "/api/apply", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`, "Content-Type": "application/json" },
             body: JSON.stringify(data),
             credentials: 'include'
         });
@@ -918,13 +933,16 @@ if(document.querySelector(".home")){
 
         const res = await fetch(url + "/api/login", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                "Content-Type": "application/json" },
             body: JSON.stringify(data),
             credentials: 'include'
         });
 
         const responseData = await res.json();
         if(responseData.message == "success"){
+            localStorage.setItem("token", responseData.token);
             window.location.href = "/dashboard.html";
         } else if(responseData.message == "invalidpassword"){
             document.getElementById("invalidError").style.display = "block";
@@ -947,6 +965,7 @@ if(document.querySelector(".home")){
                     method: 'POST',
                     credentials: 'include',
                     headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
                         'Content-Type': 'application/json', 
                     },
                     body: JSON.stringify(dataToSend), 
@@ -981,6 +1000,9 @@ if(!document.querySelector(".home")){
         try {
             const response = await fetch(`${url}/api/get-user`, {
                 method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                },
                 credentials: 'include'
             });
             const data = await response.json(); 
@@ -993,7 +1015,7 @@ if(!document.querySelector(".home")){
 
             if(userData.perms == "admin"){
                 document.querySelectorAll(".admin-element").forEach(el => {
-                    el.style.display = "block";
+                    el.classList.remove("admin-element");
                 });
             }
 
@@ -1013,8 +1035,10 @@ if(!document.querySelector(".home")){
                             const response = await fetch(url + '/api/get-events', {
                                 method: 'POST',
                                 headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
                                     'Content-Type': 'application/json', 
                                 },
+                                credentials: 'include',
                                 body: JSON.stringify(dataToSend), 
                             });
 
@@ -1061,6 +1085,7 @@ if(!document.querySelector(".home")){
                                                             method: 'POST',
                                                             credentials: 'include',
                                                             headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
                                                                 'Content-Type': 'application/json', 
                                                             },
                                                             body: JSON.stringify(dataToSend), 
@@ -1132,6 +1157,7 @@ if(!document.querySelector(".home")){
                                                             method: 'POST',
                                                             credentials: 'include',
                                                             headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
                                                                 'Content-Type': 'application/json', 
                                                             },
                                                             body: JSON.stringify(dataToSend), 
@@ -1263,10 +1289,14 @@ if(!document.querySelector(".home")){
                     try {
                         const response = await fetch(`${url}/api/get-chats`, {
                             method: 'GET',
+                            headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                },
                             credentials: 'include'
                         });
                         const data = await response.json();
                         const chats = data.chats; 
+                        data.name = "Sample Name";
                         if(data.message == "success"){
                             let dates = [];
                             chats.forEach(chat => {
@@ -1328,6 +1358,7 @@ if(!document.querySelector(".home")){
                                 method: 'POST',
                                 credentials: 'include',
                                 headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
                                     'Content-Type': 'application/json', 
                                 },
                                 body: JSON.stringify(dataToSend), 
