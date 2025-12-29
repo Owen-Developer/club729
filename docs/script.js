@@ -498,6 +498,7 @@ function createEventPost(){
         });
 
         const responseData = await res.json();
+        console.log(responseData);
         if(responseData.message == "success"){
             newEvent.style.opacity = "0";
             newEvent.style.pointerEvents = "none";
