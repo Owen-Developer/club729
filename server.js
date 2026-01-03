@@ -11,6 +11,16 @@ const cors = require('cors');
 const crypto = require('crypto');
 const e = require('express');
 const jwt = require("jsonwebtoken");
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, "uploads/pfp"),
+  filename: (req, file, cb) => {
+    const ext = file.originalname.split(".").pop();
+    cb(null, `user_${req.user.userId}.${ext}`); // Save uniquely by user ID
+  },
+});
+const upload = multer({ storage });
 
 const db = mysql.createPool({
     host: process.env.DB_HOST,
@@ -47,15 +57,6 @@ app.use(session({
 }));
 
 app.use(express.static(path.join(__dirname, "docs")));
-
-/*
-FOR JWT SESSIONS
-1. make requireAuth function in server
-2. send token to frontend in /login
-3. replace all req.session -> req.user
-4. add function middleware everywhere req.user is used, including other middleware
-5. add const jwt = require("jsonwebtoken"); :)
-*/
 
 
 
@@ -140,10 +141,10 @@ function getTime(){
         minute: "2-digit",
         hour12: false
     });
-    if(Number(timeString.slice(0, 2)) > 12){
+    if(Number(timeString.slice(0, 2)) >= 12){
         timeString = String(Number(Number(timeString.slice(0, 2)) - 12)) + timeString.slice(2) + "pm";
-    } else if(Number(timeString.slice(0, 2)) == 12){
-        timeString = timeString.slice(1) + "pm";
+    } else if(Number(timeString.slice(0, 2)) >= 10){
+        timeString = timeString.slice(0) + "am";
     } else {
         timeString = timeString.slice(1) + "am";
     }
@@ -182,7 +183,13 @@ function clubRequireAuth(req, res, next) {
 
 ////////////////////////// APIS ROUTES //////////////////////////
 app.post("/api/apply", (req, res) => {
-    const { name, email, phone, password, business } = req.body;
+    const { name, email, phone, password, business, businesstyped } = req.body;
+
+    let businessStr = business;
+    if(businessStr == "other") businessStr = businesstyped;
+    if(businesstyped == ""){
+        return res.json({ message: 'noother' });
+    }
 
     bcrypt.hash(password, 10, (err, hashedPassword) => {
         if(err){
@@ -191,7 +198,7 @@ app.post("/api/apply", (req, res) => {
 
         const token = Math.floor(100000 + Math.random() * 900000);
 
-        db.query("insert into users (name, email, phone, password_hash, business, token) values (?, ?, ?, ?, ?, ?)", [name, email, phone, hashedPassword, business, token], (err, result) => {
+        db.query("insert into users (name, email, phone, password_hash, business, token) values (?, ?, ?, ?, ?, ?)", [name, email, phone, hashedPassword, businessStr, token], (err, result) => {
             if(err){
                 console.error(err);
             }
@@ -315,29 +322,30 @@ app.post("/api/get-events", (req, res) => {
     });
 });
 
+app.get("/api/get-all", (req, res) => {
+    db.query("select * from users", (err, result) => {
+        let users = result;
+        users.forEach(user => user.password_hash == "");
+        return res.json({ users: users });
+    });
+});
+
 app.get("/api/get-chats", clubRequireAuth, (req, res) => {
     db.query("select * from chats order by id asc", (err, result) => {
         if(err){
             console.error(err);
         }
 
-        const chats = result;
-        db.query("select * from users where id = ?", [req.user.userId], (err, result) => {
-            if(err){
-                console.error(err);
-            }
-
-            return res.json({ message: 'success', chats: chats });
-        });
+        let chats = result;
+        return res.json({ message: 'success', chats: chats });
     });
 });
 
 app.post("/api/send-chat", clubRequireAuth, (req, res) => {
     const message = req.body.message;
-    let isAdmin = "no";
-    if(req.user.admin) isAdmin = "yes";
+    const area = req.body.area;
 
-    db.query("insert into chats (user_id, name, message, full_date, full_time, is_admin) values (?, ?, ?, ?, ?, ?)", [req.user.userId, req.user.name, message, getCurrentDate(), getTime(), isAdmin], (err, result) => {
+    db.query("insert into chats (user_id, message, full_date, full_time, area) values (?, ?, ?, ?, ?)", [req.user.userId, message, getCurrentDate(), getTime(), area], (err, result) => {
         if(err){
             console.error(err);
         }
@@ -378,14 +386,14 @@ app.post("/api/post-announcement", clubRequireAuth, requireAdmin, (req, res) => 
 });
 
 app.post("/api/create-event", clubRequireAuth, requireAdmin, (req, res) => {
-    let { title, description, date } = req.body;
+    let { title, description, date, time, where, link } = req.body;
 
     if(date.length != 10 || isNaN(date.slice(0, 2)) || isNaN(date.slice(3, 5)) || isNaN(date.slice(6)) || date[2] != "/" || date[5] != "/"){
         return res.json({ message: 'invaliddate' });
     }
 
     date = `${date.slice(-4)}-${date.slice(3, 5)}-${date.slice(0, 2)}`;
-    db.query("insert into all_events (title, event_date, event_description) values (?, ?, ?)", [title, date, description], (err, result) => {
+    db.query("insert into all_events (title, event_date, event_description, event_time, event_where, event_link) values (?, ?, ?, ?, ?, ?)", [title, date, description, time, where, link], (err, result) => {
         if(err){
             console.error(err);
         }
@@ -395,14 +403,14 @@ app.post("/api/create-event", clubRequireAuth, requireAdmin, (req, res) => {
 });
 
 app.post("/api/edit-event", clubRequireAuth, requireAdmin, (req, res) => {
-    let { title, description, date, id } = req.body;
+    let { title, description, date, time, where, link, id } = req.body;
 
     if(date.length != 10 || isNaN(date.slice(0, 2)) || isNaN(date.slice(3, 5)) || isNaN(date.slice(6)) || date[2] != "/" || date[5] != "/"){
         return res.json({ message: 'invaliddate' });
     }
 
     date = `${date.slice(-4)}-${date.slice(3, 5)}-${date.slice(0, 2)}`;
-    db.query("update all_events set title = ?, event_date = ?, event_description = ? where id = ?", [title, date, description, id], (err, result) => {
+    db.query("update all_events set title = ?, event_date = ?, event_description = ?, event_time = ?, event_where = ?, event_link = ? where id = ?", [title, date, description, time, where, link, id], (err, result) => {
         if(err){
             console.error(err);
         }
@@ -445,8 +453,6 @@ app.post("/api/delete-event", clubRequireAuth, requireAdmin, (req, res) => {
     });
 });
 
-
-
 app.get("/api/get-applications", clubRequireAuth, requireAdmin, (req, res) => {
     db.query("select  * from users where accepted = ?", ["no"], (err, result) => {
         if(err){
@@ -473,6 +479,42 @@ app.post("/api/accept-member", clubRequireAuth, requireAdmin, (req, res) => {
         return res.json({ message: 'success' });
     });
 });
+
+app.post("/api/upload-pfp", clubRequireAuth, upload.single("pfp"), (req, res) => {
+    db.query("update users set pfp = ? where id = ?", [`/uploads/pfp/${req.file.filename}`, req.user.userId], (err, result) => {
+        if(err){
+            console.error(err);
+        }
+
+        res.json({ success: true, url: `/uploads/pfp/${req.file.filename}` });
+    });
+});
+
+app.get("/api/delete-pfp", clubRequireAuth, (req, res) => {
+    db.query("update users set pfp = ? where id = ?", ["/images/pfp_base.png", req.user.userId], (err, result) => {
+        if(err){
+            console.error(err);
+        }
+
+        return res.json({ message: 'success' });
+    });
+});
+
+app.post("/api/edit-profile", clubRequireAuth, (req, res) => {
+    const { name, email, phone, business } = req.body;
+
+    db.query("update users set name = ?, email = ?, phone = ?, business = ? where id = ?", [name, email, phone, business, req.user.userId], (err, result) => {
+        if(err){
+            console.error(err);
+        }
+
+        return res.json({ message: 'success' });
+    });
+});
+
+app.use("/uploads", express.static("uploads"));
+
+// create, edit, apply, chats
 
 
 

@@ -33,7 +33,7 @@ function createHtml(){
             <div class="menu-nav">
                 <a onclick="closeMenu()" href="#home" class="menu-link">Home</a>
                 <a onclick="closeMenu()" href="#about" class="menu-link">About us</a>
-                <a onclick="closeMenu()" href="#gallery" class="menu-link">Gallery</a>    
+                <a onclick="closeMenu()" href="#gallery" class="menu-link" style="display: none;" >Gallery</a>    
                 <div onclick="closeMenu(); applyToggle()" class="menu-link">Apply</div>   
                 <div onclick="closeMenu(); loginToggle()" class="menu-link">Login</div>   
                 <a onclick="closeMenu()" href="#contact" class="menu-link">Contact</a>
@@ -53,7 +53,7 @@ function createHtml(){
             <div class="header-nav">
                 <a href="#home" class="header-link">Home</a>
                 <a href="#about" class="header-link">About us</a>
-                <a href="#gallery" class="header-link">Gallery</a>    
+                <a href="#gallery" class="header-link" style="display: none;" >Gallery</a>    
                 <div onclick="applyToggle()" class="header-link">Apply</div>   
                 <div onclick="loginToggle()" class="header-link">Login</div>   
                 <a href="#contact" class="header-link">Contact</a>
@@ -77,11 +77,12 @@ function createHtml(){
 
             <div class="menu-label">Browse Our Pages</div>
             <div class="menu-nav">
-                <a onclick="closeMenu()" href="/" class="menu-link">Home</a>
+                <a onclick="closeMenu()" href="/welcome.html" class="menu-link">Home</a>
                 <a onclick="closeMenu()" href="dashboard.html" class="menu-link">Calendar</a>
-                <a onclick="closeMenu()" href="gallery.html" class="menu-link">Gallery</a>    
+                <a onclick="closeMenu()" href="gallery.html" class="menu-link" style="display: none;" >Gallery</a>   
                 <a onclick="closeMenu()" href="training.html" class="menu-link">Training</a>   
-                <a onclick="closeMenu()" href="chat.html" class="menu-link">Chat</a>   
+                <div onclick="closeMenu(); createChat()" class="menu-link">Chat</div>   
+                <div onclick="closeMenu(); createProfile()" class="menu-link">Edit Profile</div>
                 <div onclick="closeMenu(); createAnc()" class="menu-link">Announcements</div>
                 <div onclick="closeMenu(); createAdminPannel()" class="header-link admin-element">Admin</div>
             </div>
@@ -98,12 +99,13 @@ function createHtml(){
             <img src="images/logo.png" class="header-logo" onclick="window.location.href = '/'" />
             
             <div class="header-nav">
-                <a href="/" class="header-link">Home</a>
+                <a href="/welcome.html" class="header-link">Home</a>
                 <a href="dashboard.html" class="header-link">Calendar</a>
-                <a href="gallery.html" class="header-link">Gallery</a>    
+                <a href="gallery.html" class="header-link" style="display: none;" >Gallery</a>    
                 <a href="training.html" class="header-link">Training</a>   
-                <a href="chat.html" class="header-link">Chat</a>   
+                <div onclick="createChat()" class="header-link">Chat</div>   
                 <div onclick="createAnc()" class="header-link">Announcements</div>
+                <div onclick="createProfile()" class="header-link">Edit Profile</div>
                 <div onclick="createAdminPannel()" class="header-link admin-element">Admin</div>
             </div>
 
@@ -133,14 +135,14 @@ function createHtml(){
             <div class="foot-nav-flex">
                 <div class="foot-nav-col">
                     <div class="foot-nav-label">Navigation</div>
-                    <a href="/" class="foot-link">Home</a>
+                    <a href="/welcome.html" class="foot-link">Home</a>
                     <a href="/#about" class="foot-link">About</a>
-                    <a href="/#gallery" class="foot-link">Gallery</a>
+                    <a href="/#gallery" class="foot-link" style="display: none;" >Gallery</a>
                 </div>
                 <div class="foot-nav-col">
                     <div class="foot-nav-label">Company</div>
-                    <a href="/" class="foot-link">Privacy policy</a>
-                    <a href="/" class="foot-link">Terms</a>
+                    <a href="/welcome.html" class="foot-link">Privacy policy</a>
+                    <a href="/welcome.html" class="foot-link">Terms</a>
                     <a href="/#contact" class="foot-link">Contact</a>
                 </div>
             </div>
@@ -256,7 +258,7 @@ function createAnc(){
                             <div class="anc-li">
                                 <div class="anc-info">
                                     <div class="anc-pfp">
-                                        <img src="images/pfp.png" />
+                                        <img src="images/pfp4.png" />
                                     </div>
                                     <div>
                                         <div class="anc-name">John Smith</div>
@@ -287,7 +289,7 @@ function createAnc(){
                     newAnc.innerHTML = `
                         <div class="anc-info">
                             <div class="anc-pfp">
-                                <img src="images/pfp.png" />
+                                <img src="images/pfp4.png" />
                             </div>
                             <div>
                                 <div class="anc-name">${userData.name}</div>
@@ -477,12 +479,47 @@ function createEventPost(){
 
                 <div class="new-label">Event Date</div>
                 <input type="text" placeholder="dd/mm/yyyy" class="new-input" name="date" required />
+
+                <input type="hidden" placeholder="15:00" class="new-input" name="time" value="n/a" required />
+
+                <div class="new-label">Meeting Type</div>
+                <div class="new-pill-flex">
+                    <div class="new-pill new-pill-active" id="event-online">Online</div>
+                    <div class="new-pill" id="event-irl">Real life</div>
+                    <input type="hidden" name="where" value="online" id="eventWhere" />
+                </div>
+
+                <div class="new-label" id="eventLinkLabel">Meeting Link</div>
+                <input type="text" placeholder="Enter Link" class="new-input" name="link" id="eventLinkFlex" required />
             </div>
             <div id="invalidError" class="new-error">Enter a valid date: 'dd/mm/yyyy'.</div>
             <button type="submit" class="new-btn" id="loginBtn">Create Event</button>
         </form>
     `;
     document.body.appendChild(newEvent);
+
+    newEvent.querySelectorAll(".new-pill-flex").forEach(flex => {
+        flex.querySelectorAll(".new-pill").forEach((pill, idx) => {
+            pill.addEventListener("click", () => {
+                if(!pill.classList.contains("new-pill-active")){
+                    flex.querySelectorAll(".new-pill").forEach(other => {
+                        other.classList.remove("new-pill-active");
+                    });
+                    pill.classList.add("new-pill-active");
+                    flex.querySelector("input").value = pill.id.split("-")[1];
+                }
+                if(idx == 0){
+                    document.getElementById("eventLinkLabel").style.display = "block";
+                    document.getElementById("eventLinkFlex").style.display = "block";
+                    document.getElementById("eventLinkFlex").value = "";
+                } else {
+                    document.getElementById("eventLinkLabel").style.display = "none";
+                    document.getElementById("eventLinkFlex").style.display = "none";
+                    document.getElementById("eventLinkFlex").value = "n/a";
+                }
+            });
+        });
+    });
 
     newEvent.querySelector("form").addEventListener("submit", async (e) => {
         e.preventDefault(); 
@@ -498,7 +535,6 @@ function createEventPost(){
         });
 
         const responseData = await res.json();
-        console.log(responseData);
         if(responseData.message == "success"){
             newEvent.style.opacity = "0";
             newEvent.style.pointerEvents = "none";
@@ -564,7 +600,7 @@ function createView(){
                 let newMember = document.createElement("div");
                 newMember.classList.add("usr-li");
                 newMember.innerHTML = `
-                    <div class="usr-name">${member.name}</div>
+                    <div class="usr-name">${member.name} (${member.business})</div>
                     <i class="fa-solid fa-trash usr-delete"></i>
                 `;
                 newMember.querySelector("i.usr-delete").addEventListener("click", () => {
@@ -646,6 +682,18 @@ function createEdit(event){
                 <div class="new-label">Event Date</div>
                 <input type="text" placeholder="dd/mm/yyyy" class="new-input" name="date" value="${event.event_date.split("-")[2]}/${event.event_date.split("-")[1]}/${event.event_date.split("-")[0]}" required />
 
+                <input type="hidden" placeholder="15:00" class="new-input" name="time" value="n/a" required />
+
+                <div class="new-label">Meeting Type</div>
+                <div class="new-pill-flex">
+                    <div class="new-pill new-pill-active" id="event-online">Online</div>
+                    <div class="new-pill" id="event-irl">Real life</div>
+                    <input type="hidden" name="where" value="online" id="eventWhere" />
+                </div>
+
+                <div class="new-label eventlinklabel">Meeting Link</div>
+                <input type="text" placeholder="Enter Link" class="new-input eventlinkflex" name="link" value="${event.event_link}" required />
+
                 <input type="hidden" name="id" value="${event.id}" />
             </div>
             <div id="invalidError" class="new-error">Enter a valid date: 'dd/mm/yyyy'.</div>
@@ -653,6 +701,33 @@ function createEdit(event){
         </form>
     `;
     document.body.appendChild(newModal);
+
+    newModal.querySelectorAll(".new-pill-flex").forEach(flex => {
+        flex.querySelectorAll(".new-pill").forEach((pill, idx) => {
+            pill.addEventListener("click", () => {
+                if(!pill.classList.contains("new-pill-active")){
+                    flex.querySelectorAll(".new-pill").forEach(other => {
+                        other.classList.remove("new-pill-active");
+                    });
+                    pill.classList.add("new-pill-active");
+                    flex.querySelector("input").value = pill.id.split("-")[1];
+                }
+                if(idx == 0){
+                    newModal.querySelector(".eventlinklabel").style.display = "block";
+                    newModal.querySelector(".eventlinkflex").style.display = "block";
+                } else {
+                    newModal.querySelector(".eventlinklabel").style.display = "none";
+                    newModal.querySelector(".eventlinkflex").style.display = "none";
+                }
+            });
+        });
+    });
+
+    if(event.event_where == "irl"){
+        newModal.querySelectorAll(".new-pill")[1].click();
+    } else {
+        newModal.querySelectorAll(".new-pill")[0].click();
+    }
 
     newModal.querySelector("form").addEventListener("submit", async (e) => {
         e.preventDefault(); 
@@ -733,7 +808,7 @@ function createApplication(){
                 let newMember = document.createElement("div");
                 newMember.classList.add("usr-li");
                 newMember.innerHTML = `
-                    <div class="usr-name">${member.name}</div>
+                    <div class="usr-name">${member.name} (${member.business})</div>
                     <i class="fa-solid fa-check usr-accept"></i>
                 `;
                 newMember.querySelector("i.usr-accept").addEventListener("click", () => {
@@ -797,6 +872,222 @@ function createApplication(){
         }
     }
     getMembers();
+}
+function createProfile(){
+    let newModal = document.createElement("div");
+    newModal.classList.add("new-modal");
+    newModal.innerHTML = `
+        <form class="new-wrapper">
+            <i class="fa-solid fa-xmark new-xmark"></i>
+            <div class="new-title">Edit Profile</div>
+            <div class="new-col">
+                <div class="new-label">Full Name</div>
+                <input type="text" placeholder="Enter Name" class="new-input" name="name" value="${userData.name}" required />
+
+                <div class="new-label">Email Address</div>
+                <input type="text" placeholder="Enter Email" class="new-input" name="email" value="${userData.email}" required />
+
+                <div class="new-label">Phone Number</div>
+                <input type="text" placeholder="Enter Phone" class="new-input" name="phone" value="${userData.phone}" required />
+
+                <div class="new-label">Business Industry</div>
+                <input type="text" placeholder="Enter Industry" class="new-input" name="business" value="${userData.business}" />
+
+                <div class="edit-upload">
+                    <i class="fa-solid fa-xmark edit-close"></i>
+                    <div class="edit-upload-content">
+                        <img src="images/icons/upload.png" class="edit-upload-icon" />
+                        <div class="edit-upload-btn">Upload Photo</div>
+                    </div>
+                    <div class="edit-upload-img">
+                        <img src="images/upload_temp.png" />
+                    </div>
+                </div>
+                <input type="file" accept="image/*" id="photoInput" style="display: none;" />
+            </div>
+            <button type="submit" class="new-btn">Save Changes</button>
+        </form>
+    `;
+    document.body.appendChild(newModal);
+
+    if(userData.pfp != "/images/pfp_base.png"){
+        document.querySelector(".edit-upload-img img").src = userData.pfp;
+        document.querySelector(".edit-upload-content").style.opacity = "0";
+        setTimeout(() => {
+            document.querySelector(".edit-upload-content").style.display = "none";
+            document.querySelector(".edit-upload-img").style.display = "flex";
+            setTimeout(() => {
+                document.querySelector("i.edit-close").style.opacity = "1";
+                document.querySelector(".edit-upload-img").style.opacity = "1";
+                document.querySelector(".edit-upload-img").style.maxHeight = "600px";
+                document.querySelector(".edit-upload-img").style.marginTop = "25px";
+            }, 50);
+        }, 300);
+    }
+
+    newModal.querySelectorAll(".new-pill-flex").forEach(flex => {
+        flex.querySelectorAll(".new-pill").forEach((pill, idx) => {
+            pill.addEventListener("click", () => {
+                if(!pill.classList.contains("new-pill-active")){
+                    flex.querySelectorAll(".new-pill").forEach(other => {
+                        other.classList.remove("new-pill-active");
+                    });
+                    pill.classList.add("new-pill-active");
+                    flex.querySelector("input").value = pill.id.split("-")[1];
+                }
+            });
+        });
+    });
+
+    document.getElementById("photoInput").addEventListener("change", async (e) => {
+        document.querySelector(".edit-upload-img img").src = URL.createObjectURL(e.target.files[0]);
+        document.querySelector(".edit-upload-content").style.opacity = "0";
+        setTimeout(() => {
+            document.querySelector(".edit-upload-content").style.display = "none";
+            document.querySelector(".edit-upload-img").style.display = "flex";
+            setTimeout(() => {
+                document.querySelector("i.edit-close").style.opacity = "1";
+                document.querySelector(".edit-upload-img").style.opacity = "1";
+                document.querySelector(".edit-upload-img").style.maxHeight = "600px";
+                document.querySelector(".edit-upload-img").style.marginTop = "25px";
+            }, 50);
+        }, 300);
+
+        const formData = new FormData();
+        formData.append("pfp", e.target.files[0]);
+
+        const res = await fetch(`${url}/api/upload-pfp`, {
+            method: "POST",
+            credentials: 'include',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            },
+            body: formData,
+        });
+
+        const data = await res.json();
+        if (data.success) {
+            console.log("PFP uploaded successfully!");
+        }
+    });
+
+    document.querySelector("i.edit-close").addEventListener("click", () => {
+        document.querySelector(".edit-upload-img").style.opacity = "0";
+        document.querySelector(".edit-upload-img").style.maxHeight = "0px";
+        document.querySelector(".edit-upload-img").style.marginTop = "0px";
+        setTimeout(() => {
+            document.querySelector(".edit-upload-content").style.display = "flex";
+            document.querySelector(".edit-upload-img").style.display = "none";
+            setTimeout(() => {
+                document.querySelector("i.edit-close").style.opacity = "0";
+                document.querySelector(".edit-upload-content").style.opacity = "1";
+            }, 50);
+        }, 400);
+
+        async function deletePfp(){
+            try {
+                const response = await fetch(`${url}/api/delete-pfp`, {
+                    method: 'GET',
+                    headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            },
+                    credentials: 'include'
+                });
+                const data = await response.json(); 
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+        deletePfp();
+    });
+
+    document.querySelector(".edit-upload-btn").addEventListener("click", () => {
+        document.getElementById("photoInput").click();
+    });
+
+    newModal.querySelector("form").addEventListener("submit", async (e) => {
+        e.preventDefault(); 
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+
+        const res = await fetch(url + "/api/edit-profile", {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`, "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+            credentials: 'include'
+        });
+
+        const responseData = await res.json();
+        if(responseData.message == "success"){
+            newModal.style.opacity = "0";
+            newModal.style.pointerEvents = "none";
+            createThank("Your event has been saved <br> successfully. Thank you!");
+        } else if(responseData.message == "invaliddate"){
+            newModal.querySelector(".new-error").style.display = "block";
+            setTimeout(() => {
+                newModal.querySelector(".new-error").style.display = "none";
+            }, 2000);
+        }
+    });
+
+    setTimeout(() => {
+        newModal.style.opacity = "1";
+        newModal.style.pointerEvents = "auto";
+    }, 50);
+    newModal.addEventListener("click", (e) => {
+        if(!newModal.querySelector("form").contains(e.target)){
+            newModal.style.opacity = "0";
+            newModal.style.pointerEvents = "none";
+            setTimeout(() => {
+                document.body.appendChild(newModal);
+            }, 300);
+        }
+    });
+    newModal.querySelector("i.new-xmark").addEventListener("click", () => {
+        newModal.style.opacity = "0";
+        newModal.style.pointerEvents = "none";
+        setTimeout(() => {
+            document.body.appendChild(newModal);
+        }, 300);
+    });
+}
+function createChat(){
+    let newPan = document.createElement("div");
+    newPan.classList.add("new-modal");
+    newPan.innerHTML = `
+        <div class="new-wrapper">
+            <i class="fa-solid fa-xmark new-xmark"></i>
+            <div class="new-title">Community Chat</div>
+
+            <a class="pan-option" href="/chat.html?chat=general">General Chat</a>
+            <a class="pan-option" href="/chat.html?chat=wins">Wins & Goals</a>
+            <a class="pan-option" href="/chat.html?chat=help">Questions & Help</a>
+            <a class="pan-option" href="/chat.html?chat=offtopic">Off Topic</a>
+        </div>
+    `;
+    document.body.appendChild(newPan);
+
+    setTimeout(() => {
+        newPan.style.opacity = "1";
+        newPan.style.pointerEvents = "auto";
+    }, 50);
+    newPan.addEventListener("click", (e) => {
+        if(!newPan.querySelector(".new-wrapper").contains(e.target)){
+            newPan.style.opacity = "0";
+            newPan.style.pointerEvents = "none";
+            setTimeout(() => {
+                document.body.appendChild(newPan);
+            }, 300);
+        }
+    });
+    newPan.querySelector("i.new-xmark").addEventListener("click", () => {
+        newPan.style.opacity = "0";
+        newPan.style.pointerEvents = "none";
+        setTimeout(() => {
+            document.body.appendChild(newPan);
+        }, 300);
+    });
 }
 
 function createThank(mesg){
@@ -923,6 +1214,13 @@ if(document.querySelector(".home")){
                     pill.classList.add("new-pill-active");
                     flex.querySelector("input").value = pill.id.split("-")[1];
                 }
+                if(pill.id.split("-")[1] == "other"){
+                    document.querySelector(".industrylabel").style.display = "block";
+                    document.querySelector(".industryinput").style.display = "block";
+                } else if(document.querySelector(".industrylabel").style.display == "block"){
+                    document.querySelector(".industrylabel").style.display = "none";
+                    document.querySelector(".industryinput").style.display = "none";
+                }
             });
         });
     });
@@ -944,7 +1242,7 @@ if(document.querySelector(".home")){
         const responseData = await res.json();
         if(responseData.message == "success"){
             localStorage.setItem("token", responseData.token);
-            window.location.href = "/dashboard.html";
+            window.location.href = "/welcome.html";
         } else if(responseData.message == "invalidpassword"){
             document.getElementById("invalidError").style.display = "block";
             setTimeout(() => {
@@ -1010,7 +1308,7 @@ if(!document.querySelector(".home")){
 
             if(data.message == "success"){
                 userData = data.userData;
-            } else if(data.message == "nouser"){
+            } else if(data.message == "nouser" || data.message == "unauth"){
                 window.location.href = "/";
             }
 
@@ -1020,6 +1318,28 @@ if(!document.querySelector(".home")){
                 });
             }
 
+            async function getNews(){
+                try {
+                    const response = await fetch(`${url}/api/get-announcements`, {
+                        method: 'GET',
+                        credentials: 'include',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                }
+                    });
+                    const data = await response.json(); 
+                    if(data.message == "success"){
+                        let para = "";
+                        for(let i = 0; i < 100; i++){
+                            para += " " + data.announcements[0].para;
+                        }
+                        document.querySelector(".news-txt").textContent = `${para}`;
+                    }
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                }
+            }
+            getNews();
 
             if(document.querySelector(".dashboard")){
                 function setCalendar(monthIdx, yearStr, firstCall){
@@ -1067,16 +1387,16 @@ if(!document.querySelector(".home")){
 
                                     bookings.forEach(booking => {
                                         if(Number(booking.event_date.slice(8, 10)) == boxDay){
+                                            let joinBtn = "";
+                                            if(booking.event_where == "online") joinBtn = `<a href="${booking.event_link}" target="_blank" class="cal-event-cta">Join Call</a>`;
                                             box.classList.add("cal-box-event");
                                             box.innerHTML += `
                                                 <i class="fa-solid fa-trash box-icon box-delete-icon"></i>
                                                 <i class="fa-solid fa-pen-to-square box-icon box-edit-icon"></i>
                                                 
                                                 <div class="cal-event-head">${booking.title}</div>
-                                                <div class="cal-event-cta">Join Call</div>
+                                                ${joinBtn}
                                             `;
-                                            box.querySelector(".cal-event-cta").addEventListener("click", () => {
-                                            });
 
                                             box.querySelector("i.box-delete-icon").addEventListener("click", () => {
                                                 async function deleteEvent(){
@@ -1139,16 +1459,16 @@ if(!document.querySelector(".home")){
 
                                     bookings.forEach(booking => {
                                         if(Number(booking.event_date.slice(8, 10)) == boxDay){
-                                            box.classList.add("lac-box-event");
+                                            let joinBtn = "";
+                                            if(booking.event_where == "online") joinBtn = `<a href="${booking.event_link}" target="_blank" class="cal-event-cta">Join Call</a>`;
+                                            box.classList.add("cal-box-event");
                                             box.innerHTML += `
                                                 <i class="fa-solid fa-trash box-icon box-delete-icon"></i>
                                                 <i class="fa-solid fa-pen-to-square box-icon box-edit-icon"></i>
                                                 
-                                                <div class="lac-event-head">${booking.title}</div>
-                                                <div class="lac-event-cta">Join Call</div>
+                                                <div class="cal-event-head">${booking.title}</div>
+                                                ${joinBtn}
                                             `;
-                                            box.querySelector(".lac-event-cta").addEventListener("click", () => {
-                                            });
 
                                             box.querySelector("i.box-delete-icon").addEventListener("click", () => {
                                                 async function deleteEvent(){
@@ -1286,6 +1606,25 @@ if(!document.querySelector(".home")){
                     });
                 }
 
+                let allUsers;
+                async function getAllUsers(){
+                    try {
+                        const response = await fetch(`${url}/api/get-all`, {
+                            method: 'GET',
+                            credentials: 'include',
+                            headers: {
+                                Authorization: `Bearer ${localStorage.getItem("token")}`
+                            },
+                        });
+                        const data = await response.json(); 
+                        allUsers = data.users;
+                        getChats();
+                    } catch (error) {
+                        console.error('Error fetching data:', error);
+                    }
+                }
+                getAllUsers();
+
                 async function getChats() {
                     try {
                         const response = await fetch(`${url}/api/get-chats`, {
@@ -1307,33 +1646,40 @@ if(!document.querySelector(".home")){
 
                             dates.forEach(date => {
                                 chats.forEach(chat => {
-                                    if(chat.full_date == date && !document.getElementById("msg-" + chat.id)){
-                                        let newMsg = document.createElement("div");
-                                        newMsg.classList.add("chat-msg");
-                                        newMsg.id = "msg-" + chat.id;
-                                        let adminText = "";
-                                        if(chat.is_admin == "yes") adminText = "(Admin)";
-                                        newMsg.innerHTML = `
-                                            <div class="chat-info">
-                                                <div class="chat-name">${chat.name} ${adminText}</div>
-                                                <div class="chat-date">${chat.full_time}</div>
-                                            </div>
-                                            <div class="chat-para">${chat.message}</div>
-                                        `;
-
-                                        if(document.getElementById("col-" + chat.full_date)){
-                                            document.getElementById("col-" + chat.full_date).appendChild(newMsg);
-                                        } else {
-                                            let newCol = document.createElement("div");
-                                            newCol.classList.add("chat-col");
-                                            newCol.id = "col-" + chat.full_date;
-                                            let dateTxt = chat.full_date;
-                                            if(dateTxt == getCurrentDate()) dateTxt = "Today";
-                                            newCol.innerHTML = `<div class="chat-hr"><span></span>${dateTxt}<span></span></div>`;
-                                            newCol.appendChild(newMsg);
-                                            document.querySelector(".chat-container").appendChild(newCol);
+                                    allUsers.forEach(user => {
+                                        if(chat.full_date == date && !document.getElementById("msg-" + chat.id) && user.id == chat.user_id && chat.area == params.get("chat")){
+                                            let newMsg = document.createElement("div");
+                                            newMsg.classList.add("chat-msg");
+                                            newMsg.id = "msg-" + chat.id;
+                                            let adminText = "";
+                                            if(user.perms == "admin") adminText = "(Admin)";
+                                            newMsg.innerHTML = `
+                                                <div class="chat-pfp">
+                                                    <img src="${user.pfp}" />
+                                                </div>
+                                                <div>
+                                                    <div class="chat-info">
+                                                        <div class="chat-name">${user.name} ${adminText}</div>
+                                                        <div class="chat-date">${chat.full_time}</div>
+                                                    </div>
+                                                    <div class="chat-para">${chat.message}</div>
+                                                </div>
+                                            `;
+    
+                                            if(document.getElementById("col-" + chat.full_date)){
+                                                document.getElementById("col-" + chat.full_date).appendChild(newMsg);
+                                            } else {
+                                                let newCol = document.createElement("div");
+                                                newCol.classList.add("chat-col");
+                                                newCol.id = "col-" + chat.full_date;
+                                                let dateTxt = chat.full_date;
+                                                if(dateTxt == getCurrentDate()) dateTxt = "Today";
+                                                newCol.innerHTML = `<div class="chat-hr"><span></span>${dateTxt}<span></span></div>`;
+                                                newCol.appendChild(newMsg);
+                                                document.querySelector(".chat-container").appendChild(newCol);
+                                            }
                                         }
-                                    }
+                                    });
                                 });
                             });
                             if(firstCheck){
@@ -1345,14 +1691,13 @@ if(!document.querySelector(".home")){
                         console.error('Error fetching data:', error);
                     }
                 }
-                getChats();
                 setInterval(getChats, 5000);
 
                 async function sendChat(){
                     let message = document.getElementById("chatArea").value;
                     document.getElementById("chatArea").value = "";
                     if(message.value != ""){
-                        const dataToSend = { message: message };
+                        const dataToSend = { message: message, area: params.get("chat") };
                         try {
                             const response = await fetch(url + '/api/send-chat', {
                                 method: 'POST',
@@ -1381,12 +1726,16 @@ if(!document.querySelector(".home")){
                     }
                 }
                 document.getElementById("chatArea").addEventListener("keydown", (e) => {
-                    if(e.key.toLowerCase() == "enter"){
+                    if(e.key.toLowerCase() == "enter" && document.getElementById("chatArea").value != ""){
                         e.preventDefault();
                         sendChat();
                     }
                 });
-                document.querySelector(".chat-arrow").addEventListener("click", sendChat);
+                document.querySelector(".chat-arrow").addEventListener("click", () => {
+                    if(document.getElementById("chatArea").value != ""){
+                        sendChat();
+                    }
+                });;
             }
         } catch (error) {
             console.error('Error fetching data:', error);
