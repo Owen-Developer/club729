@@ -232,6 +232,19 @@ function startAnimation(){
 }
 startAnimation();
 
+function expandFinTxt(){
+    document.getElementById("finReadMore").classList.add("display-none");
+    document.getElementById("finMobile").classList.add("display-none");
+    document.querySelector(".meet-box-overflow").style.maxHeight = "1850px";
+}
+function hideFinTxt(){
+    document.querySelector(".meet-box-overflow").style.maxHeight = "575px";
+    setTimeout(() => {
+        document.getElementById("finReadMore").classList.remove("display-none");
+        document.getElementById("finMobile").classList.remove("display-none");
+    }, 200);
+}
+
 function createAnc(){
     async function getAnnouncements() {
         try {
@@ -258,7 +271,7 @@ function createAnc(){
                             <div class="anc-li">
                                 <div class="anc-info">
                                     <div class="anc-pfp">
-                                        <img src="images/pfp4.png" />
+                                        <img src="images/pfp.png" />
                                     </div>
                                     <div>
                                         <div class="anc-name">John Smith</div>
@@ -289,7 +302,7 @@ function createAnc(){
                     newAnc.innerHTML = `
                         <div class="anc-info">
                             <div class="anc-pfp">
-                                <img src="images/pfp4.png" />
+                                <img src="images/pfp.png" />
                             </div>
                             <div>
                                 <div class="anc-name">${userData.name}</div>
