@@ -238,7 +238,11 @@ function expandFinTxt(){
     document.querySelector(".meet-box-overflow").style.maxHeight = "1850px";
 }
 function hideFinTxt(){
-    document.querySelector(".meet-box-overflow").style.maxHeight = "575px";
+    if(window.innerWidth > 700){
+        document.querySelector(".meet-box-overflow").style.maxHeight = "525px";
+    } else {
+        document.querySelector(".meet-box-overflow").style.maxHeight = "855px";
+    }
     setTimeout(() => {
         document.getElementById("finReadMore").classList.remove("display-none");
         document.getElementById("finMobile").classList.remove("display-none");
