@@ -80,7 +80,6 @@ function createHtml(){
                 <a onclick="closeMenu()" href="/welcome.html" class="menu-link">Home</a>
                 <a onclick="closeMenu()" href="dashboard.html" class="menu-link">Calendar</a>
                 <a onclick="closeMenu()" href="gallery.html" class="menu-link" style="display: none;" >Gallery</a>   
-                <a onclick="closeMenu()" href="training.html" class="menu-link">Training</a>   
                 <div onclick="closeMenu(); createChat()" class="menu-link">Chat</div>   
                 <div onclick="closeMenu(); createProfile()" class="menu-link">Edit Profile</div>
                 <div onclick="closeMenu(); createAnc()" class="menu-link">Announcements</div>
@@ -102,7 +101,6 @@ function createHtml(){
                 <a href="/welcome.html" class="header-link">Home</a>
                 <a href="dashboard.html" class="header-link">Calendar</a>
                 <a href="gallery.html" class="header-link" style="display: none;" >Gallery</a>    
-                <a href="training.html" class="header-link">Training</a>   
                 <div onclick="createChat()" class="header-link">Chat</div>   
                 <div onclick="createAnc()" class="header-link">Announcements</div>
                 <div onclick="createProfile()" class="header-link">Edit Profile</div>
@@ -282,7 +280,7 @@ function createAnc(){
                                         <div class="anc-date">Created at 25/12/2025</div>
                                     </div>
                                 </div>
-                                <div class="anc-head">New Training Videos</div>
+                                <div class="anc-head">New Videos</div>
                                 <div class="anc-para">
                                     Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius deserunt minima adipisci saepe. Necessitatibus quam laborum vero labore quo veniam inventore repudiandae impedit nostrum dolore, explicabo nobis veritatis quaerat nam iusto adipisci!
                                 </div>
