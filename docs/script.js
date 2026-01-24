@@ -1758,3 +1758,20 @@ if(!document.querySelector(".home")){
     }
     getUser();
 }
+
+let playing = false;
+if(document.querySelector(".about-img-container")){
+    document.querySelector(".about-img-container").onclick = () => {
+        if(!playing){
+            document.querySelector(".about-play").style.opacity = "0";
+            document.querySelector(".about-video").style.opacity = "1";
+            document.querySelector(".about-video").play();
+            playing = true;
+        } else {
+            document.querySelector(".about-play").style.opacity = "1";
+            document.querySelector(".about-video").style.opacity = "0.5";
+            document.querySelector(".about-video").pause();
+            playing = false;
+        }
+    }
+}
