@@ -330,7 +330,7 @@ function createAnc(){
                     ancModal.style.pointerEvents = "auto";
                 }, 50);
 
-                ancModal.addEventListener("click", (e) => {
+                ancModal.addEventListener("mousedown", (e) => {
                     if(!document.querySelector(".anc-wrapper").contains(e.target)){
                         ancModal.style.opacity = "0";
                         ancModal.style.pointerEvents = "none";
@@ -402,7 +402,7 @@ function createAncPost(){
         newPost.style.opacity = "1";
         newPost.style.pointerEvents = "auto";
     }, 50);
-    newPost.addEventListener("click", (e) => {
+    newPost.addEventListener("mousedown", (e) => {
         if(!newPost.querySelector("form").contains(e.target)){
             newPost.style.opacity = "0";
             newPost.style.pointerEvents = "none";
@@ -461,7 +461,7 @@ function createAdminPannel(){
         newPan.style.opacity = "1";
         newPan.style.pointerEvents = "auto";
     }, 50);
-    newPan.addEventListener("click", (e) => {
+    newPan.addEventListener("mousedown", (e) => {
         if(!newPan.querySelector(".new-wrapper").contains(e.target)){
             newPan.style.opacity = "0";
             newPan.style.pointerEvents = "none";
@@ -566,7 +566,7 @@ function createEventPost(){
         newEvent.style.opacity = "1";
         newEvent.style.pointerEvents = "auto";
     }, 50);
-    newEvent.addEventListener("click", (e) => {
+    newEvent.addEventListener("mousedown", (e) => {
         if(!newEvent.querySelector(".new-wrapper").contains(e.target)){
             newEvent.style.opacity = "0";
             newEvent.style.pointerEvents = "none";
@@ -658,7 +658,7 @@ function createView(){
                 newModal.style.opacity = "1";
                 newModal.style.pointerEvents = "auto";
             }, 50);
-            newModal.addEventListener("click", (e) => {
+            newModal.addEventListener("mousedown", (e) => {
                 if(!newModal.querySelector(".new-wrapper").contains(e.target)){
                     newModal.style.opacity = "0";
                     newModal.style.pointerEvents = "none";
@@ -774,7 +774,7 @@ function createEdit(event){
         newModal.style.opacity = "1";
         newModal.style.pointerEvents = "auto";
     }, 50);
-    newModal.addEventListener("click", (e) => {
+    newModal.addEventListener("mousedown", (e) => {
         if(!newModal.querySelector("form").contains(e.target)){
             newModal.style.opacity = "0";
             newModal.style.pointerEvents = "none";
@@ -866,7 +866,7 @@ function createApplication(){
                 newModal.style.opacity = "1";
                 newModal.style.pointerEvents = "auto";
             }, 50);
-            newModal.addEventListener("click", (e) => {
+            newModal.addEventListener("mousedown", (e) => {
                 if(!newModal.querySelector(".new-wrapper").contains(e.target)){
                     newModal.style.opacity = "0";
                     newModal.style.pointerEvents = "none";
@@ -1087,7 +1087,7 @@ function createChat(){
         newPan.style.opacity = "1";
         newPan.style.pointerEvents = "auto";
     }, 50);
-    newPan.addEventListener("click", (e) => {
+    newPan.addEventListener("mousedown", (e) => {
         if(!newPan.querySelector(".new-wrapper").contains(e.target)){
             newPan.style.opacity = "0";
             newPan.style.pointerEvents = "none";
@@ -1173,7 +1173,7 @@ if(document.querySelector(".home")){
         document.getElementById("applyModal").style.opacity = "1";
         document.getElementById("applyModal").style.pointerEvents = "auto";
     }
-    document.getElementById("applyModal").addEventListener("click", (e) => {
+    document.getElementById("applyModal").addEventListener("mousedown", (e) => {
         if(!document.getElementById("applyModal").querySelector(".new-wrapper").contains(e.target)){
             document.getElementById("applyModal").style.opacity = "0";
             document.getElementById("applyModal").style.pointerEvents = "none";
@@ -1188,7 +1188,7 @@ if(document.querySelector(".home")){
         document.getElementById("loginModal").style.opacity = "1";
         document.getElementById("loginModal").style.pointerEvents = "auto";
     }
-    document.getElementById("loginModal").addEventListener("click", (e) => {
+    document.getElementById("loginModal").addEventListener("mousedown", (e) => {
         if(!document.getElementById("loginModal").querySelector(".new-wrapper").contains(e.target)){
             document.getElementById("loginModal").style.opacity = "0";
             document.getElementById("loginModal").style.pointerEvents = "none";

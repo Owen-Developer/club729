@@ -2888,4 +2888,8 @@ i.usr-delete:hover, i.usr-accept:hover {
         height: 240px;
         width: 100%;
     }
+    .meet-fin-txt {
+        max-width: 315px;
+        min-width: 315px;
+    }
 }
