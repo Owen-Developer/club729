@@ -185,9 +185,11 @@ function clubRequireAuth(req, res, next) {
 app.post("/api/apply", (req, res) => {
     const { name, email, phone, password, business, businesstyped } = req.body;
 
+    console.log(business);
+
     let businessStr = business;
     if(businessStr == "other") businessStr = businesstyped;
-    if(businesstyped == ""){
+    if(businessStr == ""){
         return res.json({ message: 'noother' });
     }
 

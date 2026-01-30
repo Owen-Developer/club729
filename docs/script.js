@@ -1203,6 +1203,7 @@ if(document.querySelector(".home")){
         e.preventDefault(); 
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData.entries());
+        console.log(data);
 
         const res = await fetch(url + "/api/apply", {
             method: "POST",
@@ -1213,6 +1214,7 @@ if(document.querySelector(".home")){
         });
 
         const responseData = await res.json();
+        console.log(responseData);
         if(responseData.message == "success"){
             document.getElementById("applyModal").style.opacity = "0";
             document.getElementById("applyModal").style.pointerEvents = "none";

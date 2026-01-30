@@ -2695,6 +2695,7 @@ i.usr-delete:hover, i.usr-accept:hover {
     }
 
     .cta-container {
+        margin-top: 80px;
         padding: 80px 0;
     }
     .cta-title {
