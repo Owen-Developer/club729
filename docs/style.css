@@ -2002,6 +2002,7 @@ i.box-edit-icon {
     gap: 15px;
 }
 .chat-pfp {
+    flex-shrink: 0;
     width: 45px;
     height: 45px;
     border-radius: 200px;
@@ -2012,7 +2013,7 @@ i.box-edit-icon {
     margin-bottom: 4px;
 }
 .chat-pfp img {
-    width: 100%;
+    width: calc(100% + 4px);
     height: auto;
 }
 .chat-info {
